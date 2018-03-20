@@ -49,14 +49,16 @@ public class NodeList {
 		return head;
 	}
 
-	public void printElements() {
+	public String toString() {
 		NodeList node;
 		node = head;
+		String result="[ ";
 		while (node != null) {
-			System.out.println(node.value);
+			result= result+ node.value+ ", ";
 			node = node.next;
 		}
-
+		result = result.substring(0, result.length() - 2);
+	return result+ " ]";
 	}
 
 	public boolean isContainedValue(int value) {
