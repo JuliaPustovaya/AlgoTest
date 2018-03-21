@@ -15,6 +15,7 @@ public class main {
 		System.out.println(nodeList.toString());
 		nodeList.remove(10);
 		System.out.println(nodeList.toString());
+		
 		System.out.println("Size  " + nodeList.getSize());
 	}
 }
