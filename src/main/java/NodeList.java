@@ -1,43 +1,29 @@
-public class NodeList {
+public class NodeList<T> {
 	private NodeList head;
 	private NodeList tail;
 	private NodeList next;
-	private int value;
+	private T value;
 
-	public void addElementFront(int someValue) {
+	public void addElementFront(T someValue) {
 		NodeList list = new NodeList();
 		list.value = someValue;
 		if (head == null) {
-			head = list;
 			tail = list;
-
 		} else {
-
 			list.next = head;
-			head = list;
-
 		}
-
+		head = list;
 	}
 
-	public void addElementBack(int someValue) {
+	public void addElementBack(T someValue) {
 		NodeList list = new NodeList();
 		list.value = someValue;
 		if (head == null) {
 			head = list;
-			tail = list;
-
 		} else {
 			tail.next = list;
-
-			tail = list;
-
 		}
-
-	}
-
-	public NodeList getTail() {
-		return tail;
+		tail = list;
 	}
 
 	public NodeList getNext() {
@@ -45,23 +31,23 @@ public class NodeList {
 	}
 
 	public NodeList getHead() {
-
 		return head;
 	}
 
+	@Override
 	public String toString() {
 		NodeList node;
 		node = head;
-		String result="[ ";
+		String result = "[ ";
 		while (node != null) {
-			result= result+ node.value+ ", ";
+			result = result + node.value + ", ";
 			node = node.next;
 		}
 		result = result.substring(0, result.length() - 2);
-	return result+ " ]";
+		return result + " ]";
 	}
 
-	public boolean isContainedValue(int value) {
+	public boolean contains(T value) {
 		boolean isContainedValue = false;
 		NodeList node;
 		node = head;
@@ -74,35 +60,38 @@ public class NodeList {
 		return isContainedValue;
 	}
 
-	public boolean isElementRemoved(int value) {
-		if (head != null) {
-
-			NodeList node, nodeNext;
-			node = head;
-
+	public boolean remove(T value) {
+		if (!isEmpty()) {
 			if (head.value == value) {
-				head = node.next;
+				head = head.next;
+				return true;
 			}
-
+			NodeList node = head;
 			while (node.next != null) {
-
 				if (node.next.value == value) {
-					nodeNext = node.next.next;
-					node.next = nodeNext;
-
+					if (tail == node.next) {
+						tail = node;
+					}
+					node.next = node.next.next;
+					return true;
 				}
-
 				node = node.next;
-				if (node == null && tail.value == value) {
-					node = tail;
-
-				}
 			}
-			return true;
-		} else {
-			return false;
 		}
-
+		return true;
 	}
 
+	public int getSize() {
+		int size = 0;
+		NodeList tempNodeList = head;
+		while (tempNodeList != null) {
+			size++;
+			tempNodeList = tempNodeList.getNext();
+		}
+		return size;
+	}
+
+	public boolean isEmpty() {
+		return head == null;
+	}
 }
